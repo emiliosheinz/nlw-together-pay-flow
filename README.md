@@ -15,6 +15,8 @@ Under Development
 - Flutter
 - Dart
 - MVC Architecture
+- Firebase
+- Sign in with Google
 
 # 👨🏼‍🚀 Contributors
 
