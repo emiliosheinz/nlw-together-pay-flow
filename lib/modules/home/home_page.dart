@@ -20,86 +20,97 @@ class _HomePageState extends State<HomePage> {
     Container(color: Colors.green),
   ];
 
+  void setCurrentPage(int page) {
+    controller.setPage(page);
+    setState(() {});
+  }
+
+  PreferredSizeWidget buildAppBar() {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(152),
+      child: Container(
+        height: 152,
+        color: AppColors.primary,
+        child: Center(
+          child: ListTile(
+            title: Text.rich(
+              TextSpan(
+                text: "Olá, ",
+                style: AppTextStyles.titleRegular,
+                children: [
+                  TextSpan(
+                    text: "Emilio",
+                    style: AppTextStyles.titleBoldBackground,
+                  )
+                ],
+              ),
+            ),
+            subtitle: Text(
+              "Mantenha as suas contas em dia",
+              style: AppTextStyles.captionShape,
+            ),
+            trailing: Container(
+              height: 48,
+              width: 48,
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(5),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildBottomNavigationBar() {
+    return Container(
+      height: 90,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          IconButton(
+            onPressed: () {
+              setCurrentPage(0);
+            },
+            icon: Icon(Icons.home_outlined),
+            color: AppColors.primary,
+          ),
+          InkWell(
+            onTap: () {
+              setCurrentPage(1);
+            },
+            child: Container(
+              width: 56,
+              height: 56,
+              decoration: BoxDecoration(
+                color: AppColors.primary,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Icon(
+                Icons.add_box_outlined,
+                color: AppColors.background,
+              ),
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              setCurrentPage(2);
+            },
+            icon: Icon(Icons.description_outlined),
+            color: AppColors.body,
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(152),
-        child: Container(
-            height: 152,
-            color: AppColors.primary,
-            child: Center(
-              child: ListTile(
-                title: Text.rich(
-                  TextSpan(
-                    text: "Olá, ",
-                    style: AppTextStyles.titleRegular,
-                    children: [
-                      TextSpan(
-                        text: "Emilio",
-                        style: AppTextStyles.titleBoldBackground,
-                      )
-                    ],
-                  ),
-                ),
-                subtitle: Text(
-                  "Mantenha as suas contas em dia",
-                  style: AppTextStyles.captionShape,
-                ),
-                trailing: Container(
-                  height: 48,
-                  width: 48,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-              ),
-            )),
-      ),
+      appBar: buildAppBar(),
       body: pages[controller.currentPage],
-      bottomNavigationBar: Container(
-        height: 90,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              onPressed: () {
-                controller.setPage(0);
-                setState(() {});
-              },
-              icon: Icon(Icons.home_outlined),
-              color: AppColors.primary,
-            ),
-            GestureDetector(
-              onTap: () {
-                controller.setPage(1);
-                setState(() {});
-              },
-              child: Container(
-                width: 56,
-                height: 56,
-                decoration: BoxDecoration(
-                  color: AppColors.primary,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Icon(
-                  Icons.add_box_outlined,
-                  color: AppColors.background,
-                ),
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                controller.setPage(2);
-                setState(() {});
-              },
-              icon: Icon(Icons.description_outlined),
-              color: AppColors.body,
-            )
-          ],
-        ),
-      ),
+      bottomNavigationBar: buildBottomNavigationBar(),
     );
   }
 }
