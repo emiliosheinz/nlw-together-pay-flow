@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:payflow/modules/bar_code_scanner/bar_code_scanner_page.dart';
 import 'package:payflow/modules/home/home_controlle.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_text_style.dart';
@@ -78,7 +79,7 @@ class _HomePageState extends State<HomePage> {
           ),
           InkWell(
             onTap: () {
-              setCurrentPage(1);
+              Navigator.pushNamed(context, BarCodeScannerPage.routeName);
             },
             child: Container(
               width: 56,
