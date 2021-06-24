@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_text_style.dart';
+import 'package:payflow/shared/widgets/custom_bottom_sheet/custom_bottom_seet.dart';
 import 'package:payflow/shared/widgets/set_label_buttons/set_label_buttons.dart';
 
 class BarCodeScannerPage extends StatefulWidget {
@@ -36,6 +37,15 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
 
   @override
   Widget build(BuildContext context) {
+    return CustomBottomSheet(
+      title: "Não foi possível identificar um código de barras.",
+      subtitle: "Tente escanear novamente ou digite o código do seu boleto.",
+      primaryLabel: "Escanear novamente",
+      primaryOnPressed: () {},
+      secondaryLabel: "Digitar código",
+      secondaryOnPressed: () {},
+    );
+
     return SafeArea(
       child: RotatedBox(
         quarterTurns: 1,
