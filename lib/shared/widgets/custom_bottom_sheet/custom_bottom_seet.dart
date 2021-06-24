@@ -24,52 +24,54 @@ class CustomBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RotatedBox(
-      quarterTurns: 1,
-      child: Material(
-        child: Column(
-          children: [
-            Expanded(
-              child: Container(
-                color: Colors.black.withOpacity(0.6),
+    return SafeArea(
+      child: RotatedBox(
+        quarterTurns: 1,
+        child: Material(
+          child: Column(
+            children: [
+              Expanded(
+                child: Container(
+                  color: Colors.black.withOpacity(0.6),
+                ),
               ),
-            ),
-            Container(
-              color: AppColors.shape,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(40),
-                    child: Text.rich(
-                      TextSpan(
-                        text: title,
-                        style: AppTextStyles.buttonBoldHeading,
-                        children: [
-                          TextSpan(
-                            text: "\n$subtitle",
-                            style: AppTextStyles.buttonHeading,
-                          ),
-                        ],
+              Container(
+                color: AppColors.shape,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(40),
+                      child: Text.rich(
+                        TextSpan(
+                          text: title,
+                          style: AppTextStyles.buttonBoldHeading,
+                          children: [
+                            TextSpan(
+                              text: "\n$subtitle",
+                              style: AppTextStyles.buttonHeading,
+                            ),
+                          ],
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
-                  ),
-                  Divider(
-                    height: 1,
-                    thickness: 1,
-                    color: AppColors.stroke,
-                  ),
-                  SetLabelButtons(
-                    enablePrimaryColor: true,
-                    primaryLabel: primaryLabel,
-                    primaryOnPressed: primaryOnPressed,
-                    secondaryLabel: secondaryLabel,
-                    secondaryOnPressed: secondaryOnPressed,
-                  )
-                ],
+                    Divider(
+                      height: 1,
+                      thickness: 1,
+                      color: AppColors.stroke,
+                    ),
+                    SetLabelButtons(
+                      enablePrimaryColor: true,
+                      primaryLabel: primaryLabel,
+                      primaryOnPressed: primaryOnPressed,
+                      secondaryLabel: secondaryLabel,
+                      secondaryOnPressed: secondaryOnPressed,
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
