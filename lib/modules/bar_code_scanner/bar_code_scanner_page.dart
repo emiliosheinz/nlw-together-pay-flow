@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:payflow/modules/bar_code_scanner/bar_code_scanner_controller.dart';
+import 'package:payflow/modules/bar_code_scanner/bar_code_scanner_status.dart';
+import 'package:payflow/modules/insert_boleto/insert_boleto_page.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_text_style.dart';
 import 'package:payflow/shared/widgets/custom_bottom_sheet/custom_bottom_seet.dart';
@@ -14,6 +17,27 @@ class BarCodeScannerPage extends StatefulWidget {
 }
 
 class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
+  final controller = BarCodeScannerController();
+
+  @override
+  void initState() {
+    controller.getAvailableCameras();
+    controller.statusNotifier.addListener(() {
+      if (controller.status.hasBarCode) {
+        Navigator.pushReplacementNamed(context, InsertBoletoPage.routeName);
+      }
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+
+    super.dispose();
+  }
+
   AppBar buildAppBar() {
     return AppBar(
       backgroundColor: Colors.black,
@@ -37,39 +61,67 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomBottomSheet(
-      title: "Não foi possível identificar um código de barras.",
-      subtitle: "Tente escanear novamente ou digite o código do seu boleto.",
-      primaryLabel: "Escanear novamente",
-      primaryOnPressed: () {},
-      secondaryLabel: "Digitar código",
-      secondaryOnPressed: () {},
-    );
-
     return SafeArea(
-      child: RotatedBox(
-        quarterTurns: 1,
-        child: Scaffold(
-          appBar: buildAppBar(),
-          body: Column(
-            children: [
-              buildOpacityOverlay(),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  color: Colors.transparent,
-                ),
+      child: Stack(
+        children: [
+          ValueListenableBuilder<BarCodeScannerStatus>(
+            valueListenable: controller.statusNotifier,
+            builder: (_, status, __) {
+              if (status.showCamera) {
+                return Container(
+                  child: controller.cameraController!.buildPreview(),
+                );
+              }
+
+              return Container();
+            },
+          ),
+          RotatedBox(
+            quarterTurns: 1,
+            child: Scaffold(
+              appBar: buildAppBar(),
+              backgroundColor: Colors.transparent,
+              body: Column(
+                children: [
+                  buildOpacityOverlay(),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      color: Colors.transparent,
+                    ),
+                  ),
+                  buildOpacityOverlay()
+                ],
               ),
-              buildOpacityOverlay()
-            ],
+              bottomNavigationBar: SetLabelButtons(
+                primaryLabel: "Inserir código do boleto",
+                primaryOnPressed: () {},
+                secondaryLabel: "Adicionar da galeria",
+                secondaryOnPressed: () {},
+              ),
+            ),
           ),
-          bottomNavigationBar: SetLabelButtons(
-            primaryLabel: "Inserir código do boleto",
-            primaryOnPressed: () {},
-            secondaryLabel: "Adicionar da galeria",
-            secondaryOnPressed: () {},
+          ValueListenableBuilder<BarCodeScannerStatus>(
+            valueListenable: controller.statusNotifier,
+            builder: (_, status, __) {
+              if (status.hasError) {
+                return CustomBottomSheet(
+                  title: "Não foi possível identificar um código de barras.",
+                  subtitle:
+                      "Tente escanear novamente ou digite o código do seu boleto.",
+                  primaryLabel: "Escanear novamente",
+                  primaryOnPressed: () {
+                    controller.scanWithCamera();
+                  },
+                  secondaryLabel: "Digitar código",
+                  secondaryOnPressed: () {},
+                );
+              }
+
+              return Container();
+            },
           ),
-        ),
+        ],
       ),
     );
   }
