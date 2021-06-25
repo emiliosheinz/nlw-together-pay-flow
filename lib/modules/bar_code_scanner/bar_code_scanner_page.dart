@@ -19,12 +19,16 @@ class BarCodeScannerPage extends StatefulWidget {
 class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
   final controller = BarCodeScannerController();
 
+  void goToInsetBoletoPage() {
+    Navigator.pushReplacementNamed(context, InsertBoletoPage.routeName);
+  }
+
   @override
   void initState() {
     controller.getAvailableCameras();
     controller.statusNotifier.addListener(() {
       if (controller.status.hasBarCode) {
-        Navigator.pushReplacementNamed(context, InsertBoletoPage.routeName);
+        goToInsetBoletoPage();
       }
     });
 
@@ -95,7 +99,7 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
               ),
               bottomNavigationBar: SetLabelButtons(
                 primaryLabel: "Inserir código do boleto",
-                primaryOnPressed: () {},
+                primaryOnPressed: goToInsetBoletoPage,
                 secondaryLabel: "Adicionar da galeria",
                 secondaryOnPressed: () {},
               ),
@@ -114,7 +118,7 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
                     controller.scanWithCamera();
                   },
                   secondaryLabel: "Digitar código",
-                  secondaryOnPressed: () {},
+                  secondaryOnPressed: goToInsetBoletoPage,
                 );
               }
 

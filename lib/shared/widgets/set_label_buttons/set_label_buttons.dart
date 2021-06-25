@@ -9,44 +9,58 @@ class SetLabelButtons extends StatelessWidget {
   final String secondaryLabel;
   final VoidCallback secondaryOnPressed;
   final bool enablePrimaryColor;
+  final bool enableSecondaryColor;
 
-  const SetLabelButtons({
-    Key? key,
-    required this.primaryLabel,
-    required this.primaryOnPressed,
-    required this.secondaryLabel,
-    required this.secondaryOnPressed,
-    this.enablePrimaryColor = false,
-  }) : super(key: key);
+  const SetLabelButtons(
+      {Key? key,
+      required this.primaryLabel,
+      required this.primaryOnPressed,
+      required this.secondaryLabel,
+      required this.secondaryOnPressed,
+      this.enablePrimaryColor = false,
+      this.enableSecondaryColor = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.shape,
       height: 56,
-      child: Row(
-        children: [
-          Expanded(
-            child: LabelButton(
-              label: primaryLabel,
-              onPressed: primaryOnPressed,
-              lableStyle:
-                  enablePrimaryColor ? AppTextStyles.buttonPrimary : null,
-            ),
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Divider(
+          thickness: 1,
+          height: 1,
+          color: AppColors.stroke,
+        ),
+        Container(
+          height: 55,
+          child: Row(
+            children: [
+              Expanded(
+                child: LabelButton(
+                  label: primaryLabel,
+                  onPressed: primaryOnPressed,
+                  lableStyle:
+                      enablePrimaryColor ? AppTextStyles.buttonPrimary : null,
+                ),
+              ),
+              VerticalDivider(
+                width: 1,
+                thickness: 1,
+                color: AppColors.stroke,
+              ),
+              Expanded(
+                child: LabelButton(
+                  label: secondaryLabel,
+                  onPressed: secondaryOnPressed,
+                  lableStyle:
+                      enableSecondaryColor ? AppTextStyles.buttonPrimary : null,
+                ),
+              )
+            ],
           ),
-          VerticalDivider(
-            width: 1,
-            thickness: 1,
-            color: AppColors.stroke,
-          ),
-          Expanded(
-            child: LabelButton(
-              label: secondaryLabel,
-              onPressed: secondaryOnPressed,
-            ),
-          )
-        ],
-      ),
+        ),
+      ]),
     );
   }
 }
