@@ -66,6 +66,10 @@ class BarCodeScannerController {
     });
   }
 
+  void pause() {
+    status = BarCodeScannerStatus.error("Timeout de leitura de boleto");
+  }
+
   void listenCamera() {
     if (cameraController!.value.isStreamingImages == false)
       cameraController!.startImageStream((cameraImage) async {

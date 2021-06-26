@@ -20,11 +20,14 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
   final controller = BarCodeScannerController();
 
   void goToInsetBoletoPage() {
-    Navigator.pushReplacementNamed(
+    Navigator.pushNamed(
       context,
       InsertBoletoPage.routeName,
       arguments: controller.status.barCode,
     );
+    Future.delayed(Duration(seconds: 1), () {
+      controller.pause();
+    });
   }
 
   @override

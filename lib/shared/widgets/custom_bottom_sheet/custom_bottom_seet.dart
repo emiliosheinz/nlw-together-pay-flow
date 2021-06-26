@@ -28,6 +28,7 @@ class CustomBottomSheet extends StatelessWidget {
       child: RotatedBox(
         quarterTurns: 1,
         child: Material(
+          color: Colors.transparent,
           child: Column(
             children: [
               Expanded(

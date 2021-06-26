@@ -120,7 +120,10 @@ class _InsertBoletoPageState extends State<InsertBoletoPage> {
         secondaryOnPressed: () async {
           final bool hasRegistered = await controller.registerBoleto();
           if (hasRegistered) {
-            Navigator.pop(context);
+            Navigator.popUntil(
+              context,
+              ModalRoute.withName(HomePage.routeName),
+            );
           }
         },
         enableSecondaryColor: true,
