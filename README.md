@@ -17,6 +17,8 @@ Under Development
 - MVC Architecture
 - Firebase
 - Sign in with Google
+- AnimatedCard
+- Google MLKIT
 
 # 👨🏼‍🚀 Contributors
 
