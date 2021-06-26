@@ -22,6 +22,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final topContainerHeight = screenSize.height * 0.35;
+    final double imageSizeWidth = 208;
+    final double imageHeight = 300;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -31,22 +33,55 @@ class _LoginPageState extends State<LoginPage> {
         child: Stack(
           children: [
             Container(
-              color: AppColors.primary,
-              width: double.infinity,
+              decoration: BoxDecoration(
+                color: AppColors.primary,
+                gradient: RadialGradient(
+                  colors: [
+                    Color(0xFFFFC380),
+                    AppColors.primary,
+                  ],
+                ),
+              ),
+              width: screenSize.width,
               height: topContainerHeight,
             ),
             Positioned(
-              top: topContainerHeight / 5,
+              top: topContainerHeight / 3.5,
               left: 0,
               right: 0,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    AppImages.person,
-                    width: 208,
-                    height: 300,
+                  Container(
+                    width: imageSizeWidth,
+                    height: imageHeight,
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 5),
+                          child: Image.asset(
+                            AppImages.person,
+                          ),
+                        ),
+                        Container(
+                          width: imageSizeWidth * 0.75,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            gradient: LinearGradient(
+                              begin: FractionalOffset.topCenter,
+                              end: FractionalOffset.bottomCenter,
+                              colors: [
+                                Colors.white.withOpacity(0.0),
+                                Colors.white,
+                              ],
+                              stops: [0.6, 0.96],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
