@@ -19,50 +19,39 @@ class _BoletoListWidgetState extends State<BoletoListWidget> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<List<BoletoModel>>(
-      valueListenable: widget.controller.boletosNotifier,
-      builder: (_, boletos, __) => boletos.length > 0
-          ? Column(
-              children: boletos
-                  .map(
-                    (boleto) => InkWell(
-                      onTap: () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (_) {
-                            return BoletoBottomSheetModal(
-                              onDeletePress: () async {
-                                await widget.controller.deleteBoleto(boleto);
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text("Boleto deletado!"),
-                                    backgroundColor: AppColors.primary,
-                                  ),
-                                );
-                                Navigator.pop(context);
-                              },
-                              onPrimaryPress: () {},
-                              onSecondaryPress: () {
-                                Navigator.pop(context);
-                              },
-                              boletoName: boleto.name ?? "sem nome",
-                              boletoValue: boleto.value ?? 0,
-                            );
-                          },
-                        );
-                      },
-                      child: BoletoTileWidget(data: boleto),
-                    ),
-                  )
-                  .toList())
-          : Center(
-              child: SizedBox(
-              width: 250,
-              child: Text(
-                "Não temos nada para exibir aqui no momento!\n Cadastre algum boleto para que sejá possível visualizá-lo.",
-                style: AppTextStyles.buttonBoldPrimary,
-                textAlign: TextAlign.center,
-              ),
-            )),
-    );
+        valueListenable: widget.controller.boletosNotifier,
+        builder: (_, boletos, __) => Column(
+            children: boletos
+                .map(
+                  (boleto) => InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (_) {
+                          return BoletoBottomSheetModal(
+                            onDeletePress: () async {
+                              await widget.controller.deleteBoleto(boleto);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("Boleto deletado!"),
+                                  backgroundColor: AppColors.primary,
+                                ),
+                              );
+                              Navigator.pop(context);
+                            },
+                            onPrimaryPress: () {},
+                            onSecondaryPress: () {
+                              Navigator.pop(context);
+                            },
+                            boletoName: boleto.name ?? "sem nome",
+                            boletoValue: boleto.value ?? 0,
+                          );
+                        },
+                      );
+                    },
+                    child: BoletoTileWidget(data: boleto),
+                  ),
+                )
+                .toList()));
   }
 }
