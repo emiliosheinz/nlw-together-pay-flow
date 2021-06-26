@@ -16,28 +16,30 @@ class _StatementsPageState extends State<StatementsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: 24),
-            child: Row(
-              children: [
-                Text(
-                  "Meus Extratos",
-                  style: AppTextStyles.titleBoldHeading,
-                ),
-              ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 24),
+              child: Row(
+                children: [
+                  Text(
+                    "Meus Extratos",
+                    style: AppTextStyles.titleBoldHeading,
+                  ),
+                ],
+              ),
             ),
-          ),
-          Divider(
-            color: AppColors.stroke,
-            height: 48,
-            thickness: 1,
-          ),
-          BoletoListWidget(controller: controller)
-        ],
+            Divider(
+              color: AppColors.stroke,
+              height: 48,
+              thickness: 1,
+            ),
+            BoletoListWidget(controller: controller)
+          ],
+        ),
       ),
     );
   }

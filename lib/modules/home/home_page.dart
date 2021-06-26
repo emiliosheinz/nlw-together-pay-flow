@@ -4,15 +4,16 @@ import 'package:payflow/modules/bar_code_scanner/bar_code_scanner_page.dart';
 import 'package:payflow/modules/home/home_controlle.dart';
 import 'package:payflow/modules/my_boletos/my_boletos_page.dart';
 import 'package:payflow/modules/statements/statements_page.dart';
-import 'package:payflow/shared/models/boleto_model.dart';
+import 'package:payflow/shared/models/user_model.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_text_style.dart';
-import 'package:payflow/shared/widgets/boleto_list_widget/bolet_list_widget.dart';
-import 'package:payflow/shared/widgets/boleto_tile_widget/boleto_tile_widget.dart';
 
 class HomePage extends StatefulWidget {
   static final routeName = "/home";
-  const HomePage({Key? key}) : super(key: key);
+
+  final UserModel user;
+
+  const HomePage({Key? key, required this.user}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -20,10 +21,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final controller = HomeController();
-  final pages = [
-    MyBoletosPage(),
-    StatementsPage(),
-  ];
 
   void setCurrentPage(int page) {
     controller.setPage(page);
@@ -44,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                 style: AppTextStyles.titleRegular,
                 children: [
                   TextSpan(
-                    text: "Emilio",
+                    text: "${widget.user.name}",
                     style: AppTextStyles.titleBoldBackground,
                   )
                 ],
@@ -60,6 +57,9 @@ class _HomePageState extends State<HomePage> {
               decoration: BoxDecoration(
                 color: Colors.black,
                 borderRadius: BorderRadius.circular(5),
+                image: DecorationImage(
+                  image: NetworkImage(widget.user.photoUrl),
+                ),
               ),
             ),
           ),
@@ -78,12 +78,17 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               setCurrentPage(0);
             },
-            icon: Icon(Icons.home_outlined),
-            color: AppColors.primary,
+            icon: Icon(
+              Icons.home_outlined,
+              color: controller.currentPage == 0
+                  ? AppColors.primary
+                  : AppColors.body,
+            ),
           ),
           InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, BarCodeScannerPage.routeName);
+            onTap: () async {
+              await Navigator.pushNamed(context, BarCodeScannerPage.routeName);
+              setState(() {});
             },
             child: Container(
               width: 56,
@@ -102,8 +107,12 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               setCurrentPage(1);
             },
-            icon: Icon(Icons.description_outlined),
-            color: AppColors.body,
+            icon: Icon(
+              Icons.description_outlined,
+              color: controller.currentPage == 1
+                  ? AppColors.primary
+                  : AppColors.body,
+            ),
           )
         ],
       ),
@@ -114,7 +123,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: pages[controller.currentPage],
+      body: [
+        MyBoletosPage(key: UniqueKey()),
+        StatementsPage(key: UniqueKey()),
+      ][controller.currentPage],
       bottomNavigationBar: buildBottomNavigationBar(),
     );
   }
