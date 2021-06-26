@@ -3,6 +3,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 
 class AppTextStyles {
+  static final bottomSheetBoldDescription = GoogleFonts.lexendDeca(
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+    color: AppColors.heading,
+  );
+  static final bottomSheetRegularDescription = GoogleFonts.lexendDeca(
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    color: AppColors.heading,
+  );
   static final titleHome = GoogleFonts.lexendDeca(
     fontSize: 32,
     fontWeight: FontWeight.w600,
@@ -47,6 +57,11 @@ class AppTextStyles {
     fontSize: 15,
     fontWeight: FontWeight.w400,
     color: AppColors.heading,
+  );
+  static final buttonDelete = GoogleFonts.inter(
+    fontSize: 15,
+    fontWeight: FontWeight.w400,
+    color: AppColors.delete,
   );
   static final buttonGray = GoogleFonts.inter(
     fontSize: 15,

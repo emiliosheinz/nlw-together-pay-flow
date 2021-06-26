@@ -8,7 +8,9 @@ import 'package:payflow/shared/widgets/boleto_list_widget/bolet_list_widget.dart
 import 'package:payflow/shared/widgets/boleto_list_widget/boleto_list_controller.dart';
 
 class MyBoletosPage extends StatefulWidget {
-  const MyBoletosPage({Key? key}) : super(key: key);
+  const MyBoletosPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _MyBoletosPageState createState() => _MyBoletosPageState();
@@ -28,16 +30,17 @@ class _MyBoletosPageState extends State<MyBoletosPage> {
                 color: AppColors.primary,
                 height: 40,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: ValueListenableBuilder<List<BoletoModel>>(
-                  valueListenable: controller.boletosNotifier,
-                  builder: (_, boletos, __) => AnimatedCard(
-                    direction: AnimatedCardDirection.top,
-                    child: BoletoInfoWidget(quantityOfBoletos: boletos.length),
+              AnimatedCard(
+                direction: AnimatedCardDirection.left,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: ValueListenableBuilder<List<BoletoModel>>(
+                    valueListenable: controller.boletosNotifier,
+                    builder: (_, boletos, __) =>
+                        BoletoInfoWidget(quantityOfBoletos: boletos.length),
                   ),
                 ),
-              ),
+              )
             ],
           ),
           Padding(
@@ -60,7 +63,9 @@ class _MyBoletosPageState extends State<MyBoletosPage> {
                   height: 48,
                   thickness: 1,
                 ),
-                BoletoListWidget(controller: controller)
+                BoletoListWidget(
+                  controller: controller,
+                )
               ],
             ),
           )
