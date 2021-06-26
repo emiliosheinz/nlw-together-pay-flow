@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:payflow/modules/login/login_controller.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_images.dart';
@@ -22,8 +21,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final topContainerHeight = screenSize.height * 0.35;
-    final double imageSizeWidth = 208;
-    final double imageHeight = 300;
+    final double imageWidth = screenSize.width;
+    final double imageHeight = screenSize.height * 0.45;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -36,6 +35,8 @@ class _LoginPageState extends State<LoginPage> {
               decoration: BoxDecoration(
                 color: AppColors.primary,
                 gradient: RadialGradient(
+                  center: Alignment.bottomCenter,
+                  radius: 0.7,
                   colors: [
                     Color(0xFFFFC380),
                     AppColors.primary,
@@ -46,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
               height: topContainerHeight,
             ),
             Positioned(
-              top: topContainerHeight / 3.5,
+              top: topContainerHeight / 4,
               left: 0,
               right: 0,
               child: Column(
@@ -54,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    width: imageSizeWidth,
+                    width: imageWidth,
                     height: imageHeight,
                     child: Stack(
                       alignment: Alignment.bottomCenter,
@@ -66,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         Container(
-                          width: imageSizeWidth * 0.75,
+                          width: imageWidth * 0.75,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             gradient: LinearGradient(
