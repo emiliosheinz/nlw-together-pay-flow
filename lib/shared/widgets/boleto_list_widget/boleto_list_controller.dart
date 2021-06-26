@@ -20,4 +20,12 @@ class BoletoListController {
       boletos = <BoletoModel>[];
     }
   }
+
+  Future<void> deleteBoleto(BoletoModel boleto) async {
+    final instance = await SharedPreferences.getInstance();
+    final sharedBoletos = instance.getStringList("boletos") ?? <String>[];
+    sharedBoletos.remove(boleto.toJson());
+    await instance.setStringList("boletos", sharedBoletos);
+    await getBoletos();
+  }
 }

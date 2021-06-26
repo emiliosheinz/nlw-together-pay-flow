@@ -26,12 +26,16 @@ class _MyBoletosPageState extends State<MyBoletosPage> {
         children: [
           Stack(
             children: [
-              Container(
-                color: AppColors.primary,
-                height: 40,
+              AnimatedCard(
+                direction: AnimatedCardDirection.top,
+                child: Container(
+                  color: AppColors.primary,
+                  height: 40,
+                ),
               ),
               AnimatedCard(
                 direction: AnimatedCardDirection.left,
+                initDelay: Duration(seconds: 1),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: ValueListenableBuilder<List<BoletoModel>>(

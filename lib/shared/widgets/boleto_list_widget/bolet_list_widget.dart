@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:payflow/shared/models/boleto_model.dart';
+import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/widgets/boleto_bottom_sheet_modal/boleto_bottom_sheet_modal.dart';
 import 'package:payflow/shared/widgets/boleto_list_widget/boleto_list_controller.dart';
 import 'package:payflow/shared/widgets/boleto_tile_widget/boleto_tile_widget.dart';
@@ -27,7 +28,16 @@ class _BoletoListWidgetState extends State<BoletoListWidget> {
                     context: context,
                     builder: (_) {
                       return BoletoBottomSheetModal(
-                        onDeletePress: () {},
+                        onDeletePress: () async {
+                          await widget.controller.deleteBoleto(boleto);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Boleto deletado!"),
+                              backgroundColor: AppColors.primary,
+                            ),
+                          );
+                          Navigator.pop(context);
+                        },
                         onPrimaryPress: () {},
                         onSecondaryPress: () {
                           Navigator.pop(context);

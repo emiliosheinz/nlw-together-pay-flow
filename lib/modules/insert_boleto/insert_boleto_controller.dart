@@ -36,10 +36,13 @@ class InsertBoletoController {
     await instance.setStringList("boletos", boletos);
   }
 
-  Future<void> registerBoleto() async {
+  Future<bool> registerBoleto() async {
     final form = formKey.currentState;
     if (form!.validate()) {
       await saveBoleto();
+      return true;
     }
+
+    return false;
   }
 }

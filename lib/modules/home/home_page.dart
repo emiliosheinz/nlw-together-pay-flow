@@ -20,6 +20,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final pages = [
+    MyBoletosPage(key: UniqueKey()),
+    StatementsPage(key: UniqueKey()),
+  ];
   final controller = HomeController();
 
   void setCurrentPage(int page) {
@@ -86,9 +90,8 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           InkWell(
-            onTap: () async {
-              await Navigator.pushNamed(context, BarCodeScannerPage.routeName);
-              setState(() {});
+            onTap: () {
+              Navigator.pushNamed(context, BarCodeScannerPage.routeName);
             },
             child: Container(
               width: 56,
@@ -113,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                   ? AppColors.primary
                   : AppColors.body,
             ),
-          )
+          ),
         ],
       ),
     );
@@ -123,10 +126,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: [
-        MyBoletosPage(key: UniqueKey()),
-        StatementsPage(key: UniqueKey()),
-      ][controller.currentPage],
+      body: pages[controller.currentPage],
       bottomNavigationBar: buildBottomNavigationBar(),
     );
   }
