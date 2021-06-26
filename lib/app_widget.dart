@@ -5,6 +5,7 @@ import 'package:payflow/modules/bar_code_scanner/bar_code_scanner_page.dart';
 import 'package:payflow/modules/home/home_page.dart';
 import 'package:payflow/modules/insert_boleto/insert_boleto_page.dart';
 import 'package:payflow/modules/splash/splash_page.dart';
+import 'package:payflow/shared/models/home_params.dart';
 import 'package:payflow/shared/models/user_model.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 
@@ -27,9 +28,15 @@ class AppWidget extends StatelessWidget {
       initialRoute: SplashPage.routeName,
       routes: {
         SplashPage.routeName: (_) => SplashPage(),
-        HomePage.routeName: (context) => HomePage(
-              user: ModalRoute.of(context)!.settings.arguments as UserModel,
-            ),
+        HomePage.routeName: (context) {
+          final params =
+              ModalRoute.of(context)!.settings.arguments as HomeParams;
+
+          return HomePage(
+            user: params.user,
+            authController: params.authController,
+          );
+        },
         LoginPage.routeName: (_) => LoginPage(),
         BarCodeScannerPage.routeName: (_) => BarCodeScannerPage(),
         InsertBoletoPage.routeName: (context) {

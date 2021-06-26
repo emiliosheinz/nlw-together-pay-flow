@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:payflow/modules/home/home_page.dart';
 import 'package:payflow/modules/login/login_page.dart';
+import 'package:payflow/shared/models/home_params.dart';
 import 'package:payflow/shared/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,7 +18,7 @@ class AuthController {
       Navigator.pushReplacementNamed(
         context,
         HomePage.routeName,
-        arguments: user,
+        arguments: HomeParams(user: user, authController: this),
       );
     } else {
       Navigator.pushReplacementNamed(context, LoginPage.routeName);
@@ -40,5 +41,9 @@ class AuthController {
     } else {
       setUser(context, null);
     }
+  }
+
+  void logout(BuildContext context) {
+    setUser(context, null);
   }
 }
