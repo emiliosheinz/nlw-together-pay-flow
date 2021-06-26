@@ -2,8 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:payflow/modules/bar_code_scanner/bar_code_scanner_page.dart';
 import 'package:payflow/modules/home/home_controlle.dart';
+import 'package:payflow/modules/my_boletos/my_boletos_page.dart';
+import 'package:payflow/modules/statements/statements_page.dart';
+import 'package:payflow/shared/models/boleto_model.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_text_style.dart';
+import 'package:payflow/shared/widgets/boleto_list_widget/bolet_list_widget.dart';
+import 'package:payflow/shared/widgets/boleto_tile_widget/boleto_tile_widget.dart';
 
 class HomePage extends StatefulWidget {
   static final routeName = "/home";
@@ -16,9 +21,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final controller = HomeController();
   final pages = [
-    Container(color: Colors.red),
-    Container(color: Colors.blue),
-    Container(color: Colors.green),
+    MyBoletosPage(),
+    StatementsPage(),
   ];
 
   void setCurrentPage(int page) {
@@ -96,7 +100,7 @@ class _HomePageState extends State<HomePage> {
           ),
           IconButton(
             onPressed: () {
-              setCurrentPage(2);
+              setCurrentPage(1);
             },
             icon: Icon(Icons.description_outlined),
             color: AppColors.body,
